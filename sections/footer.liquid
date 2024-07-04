@@ -1,0 +1,320 @@
+{% comment %}theme-check-disable UndefinedObject{% endcomment %}
+{{ 'section-footer.css' | asset_url | stylesheet_tag }}
+{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-menu.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .footer {
+    margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
+    width: 100%;
+    background-color: #f3f3f3;
+    padding: 20px 0;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .footer__content-top, .footer__content-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer__content-bottom-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+
+  .footer__column {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
+  }
+
+  .footer__newsletter-form input[type="text"], .footer__newsletter-form input[type="email"], .footer__newsletter-form button {
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .footer__newsletter-form button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .footer__newsletter-form button:hover {
+    background-color: #333;
+  }
+
+  .footer__payment-methods img {
+    max-width: 50px;
+    margin: 5px;
+  }
+
+  .footer__list-menu a {
+    display: block;
+    margin: 5px 0;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .footer__list-menu a:hover {
+    text-decoration: underline;
+  }
+
+  .footer__support button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .footer__support button:hover {
+    background-color: #333;
+  }
+
+  .footer__company-info p, .footer__design-credit p {
+    margin: 5px 0;
+  }
+
+  .footer__company-info {
+    flex: 1;
+    text-align: left;
+    padding: 10px;
+  }
+
+  .footer__design-credit {
+    flex: 1;
+    text-align: right;
+    padding: 10px;
+  }
+
+  .footer__support img {
+    width: auto;
+    max-width: 150px;
+    margin-top: 10px;
+  }
+
+  .footer__menus {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .footer__content-top, .footer__content-bottom-wrapper {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer__column {
+      text-align: center;
+    }
+
+    .footer__menus {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+{%- endstyle -%}
+
+<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="footer__content-top page-width">
+    <div class="footer__newsletter">
+      <h2>{{ section.settings.newsletter_heading }}</h2>
+      <form class="footer__newsletter-form" action="/contact" method="post" id="ContactFooter">
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="text" name="contact[full_name]" placeholder="Nome completo" required>
+        <input type="email" name="contact[email]" placeholder="E-mail" required>
+        <button type="submit">ASSINAR</button>
+      </form>
+    </div>
+    <div class="footer__menus">
+      {%- for block in section.blocks -%}
+        <div class="footer__column">
+          <h2>{{ block.settings.heading }}</h2>
+          <ul class="footer__list-menu list-unstyled">
+            {%- for link in linklists[block.settings.menu].links -%}
+              <li>
+                <a href="{{ link.url }}" class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}">
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="footer__support">
+      <h2>{{ section.settings.support_heading }}</h2>
+      <a href="{{ shop.url }}/pages/contact">
+        <button>{{ section.settings.support_button_label }}</button>
+      </a>
+      <div class="img-google">
+        <img src="https://cdn.shopify.com/s/files/1/0707/2222/4351/files/google-safe-mono.png?v=1720118398" alt="Google Safe Browsing">
+      </div>
+    </div>
+  </div>
+  <div class="footer__content-bottom page-width">
+    <div class="footer__payment-methods">
+      <h2>{{ section.settings.payment_heading }}</h2>
+      <div class="payment-box">
+        <div class="payment-icon margin-la"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/VISA.svg?v=7465368297978241971719941065" width="50" height="25" class="fluid-i lazyload" alt="Visa"></div>
+        <div class="payment-icon margin--1a"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/DINNERS.svg?v=43760574535310140211719941065" width="50" height="25" class="fluid-i lazyload" alt="Dinners"></div>
+        <div class="payment-icon margin--1a"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/MASTERCARD.svg?v=103501794080103759821719941065" width="50" height="25" class="fluid-i lazyload" alt="MasterCard"></div>
+        <div class="payment-icon margin--1a"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/HIPERCARD.svg?v=118215574350710381721719941065" width="50" height="25" class="fluid-i lazyload" alt="Hipercard"></div>
+        <div class="payment-icon margin--1a"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/AURA.svg?v=74321338444638128441719941065" width="50" height="25" class="fluid-i lazyload" alt="Auracard"></div>
+        <div class="payment-icon margin-la"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/ELO.svg?v=57363376252194448211719941065" width="50" height="25" class="fluid-i lazyload" alt="Elo"></div>
+        <div class="payment-icon margin--1a"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/AMEX.svg?v=156721050750723113511719941065" width="50" height="25" class="fluid-i lazyload" alt="American Express"></div>
+        <div class="payment-icon margin--1a"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/DISCOVER.svg?v=51104008127175826311719941065" style="margin-top:-1px" width="51" height="25" class="fluid-i lazyload" alt="Discovercard"></div>
+        <div class="payment-icon margin--1a"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/PIX.svg?v=106757000572440841201719941065" style="margin-top= 2px !important" width="50" height="25" class="fluid-i lazyload" alt="Pix"></div>
+        <div class="payment-icon margin--1a"><img src="//www.craveli.com.br/cdn/shop/t/11/assets/BOLETO.svg?v=134186075353682252391719941065" style="margin-top:-1px" width="49" height="25" class="fluid-i lazyload" alt="Boleto"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer__content-bottom-wrapper">
+    <div class="footer__company-info">
+      <p>{{ section.settings.company_name }}</p>
+      <p>{{ section.settings.company_registration }}</p>
+      <p>{{ section.settings.company_address }}</p>
+      <p>Email: {{ section.settings.company_email }}</p>
+      <p>WhatsApp: {{ section.settings.company_whatsapp }}</p>
+    </div>
+    <div class="copy">
+      <script type="text/javascript">document.write(new Date().getFullYear());</script> © {{ shop.name }} - Todos os direitos reservados.<br>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Rodapé",
+  "settings": [
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "default": "Receba as novidades por email (:",
+      "label": "Título do Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "support_heading",
+      "default": "Precisa de ajuda?",
+      "label": "Título de Suporte"
+    },
+    {
+      "type": "text",
+      "id": "support_button_label",
+      "default": "SUPORTE",
+      "label": "Texto do Botão de Suporte"
+    },
+    {
+      "type": "text",
+      "id": "payment_heading",
+      "default": "Formas de pagamento",
+      "label": "Título de Formas de Pagamento"
+    },
+    {
+      "type": "text",
+      "id": "company_name",
+      "default": "Aff The Hype",
+      "label": "Nome da Empresa"
+    },
+    {
+      "type": "text",
+      "id": "company_registration",
+      "default": "CNPJ: 20849796000169",
+      "label": "Registro da Empresa"
+    },
+    {
+      "type": "text",
+      "id": "company_address",
+      "default": "São Paulo / SP",
+      "label": "Endereço da Empresa"
+    },
+    {
+      "type": "text",
+      "id": "company_email",
+      "default": "contato@affthehype.com",
+      "label": "E-mail da Empresa"
+    },
+    {
+      "type": "text",
+      "id": "company_whatsapp",
+      "default": "+55 11 99999-9999",
+      "label": "WhatsApp da Empresa"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margem Superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento Superior",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento Inferior",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Lista de Links",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Título",
+          "label": "Título"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Padrão",
+      "category": "Rodapé"
+    }
+  ]
+}
+{% endschema %}

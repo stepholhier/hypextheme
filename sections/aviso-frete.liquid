@@ -1,0 +1,42 @@
+<!-- aviso-frete.liquid -->
+
+{% schema %}
+  {
+    "name": "Aviso de Frete",
+    "settings": [
+      {
+        "type": "text",
+        "id": "ban_text",
+        "label": "Texto do aviso",
+        "default": "Este é o texto do aviso"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Aviso de Frete",
+        "category": "Informações",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
+
+<div class="ban-av">
+  {% if block.settings.ban_text and settings.ban_text != blank %}
+    <h1>{{ block.settings.ban_text }}</h1>
+  {% endif %}
+</div>
+
+<style>
+  .ban-av {
+    padding: 15px;
+    background: #ffa50033;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+  .ban-av h1 {
+    font-size: 13px;
+}
+</style>

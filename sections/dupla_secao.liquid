@@ -1,0 +1,82 @@
+{% schema %}
+{
+    "name": "Seção Tripla",
+    "settings": [],
+    "blocks": [
+        {
+            "type": "banner",
+            "name": "Banner",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "banner_image",
+                    "label": "Banner Image"
+                },
+                {
+                    "type": "url",
+                    "id": "banner_link",
+                    "label": "Banner Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Seção Tripla",
+            "category": "Custom"
+        }
+    ],
+    "max_blocks": 3
+}
+{% endschema %}
+
+<div class="twosection">
+    {% for block in section.blocks %}
+        {% if block.settings.banner_image %}
+            <a href="{{ block.settings.banner_link }}">
+                <img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="Banner {{ forloop.index }}">
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<style>
+.twosection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 70px auto;
+    gap: 30px;
+}
+.twosection a {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    max-width: 418px;
+}
+.twosection img {
+    border-radius: 10px;
+    width: 100%; 
+    max-width: 100%;
+    object-fit: contain;
+    transition: 0.3s all;
+}
+  .twosection img:hover {
+    transform: scale(1.1);
+    transition: 0.3s all;
+}
+
+@media only screen and (max-width: 767px) {
+  .twosection {
+    display: block;
+}
+.twosection img {
+    border-radius: 10px;
+    width: 85%; 
+    max-width: 100%;
+    object-fit: contain;
+    margin: 10px;
+}
+}
+</style>

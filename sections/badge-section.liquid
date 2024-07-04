@@ -1,0 +1,75 @@
+{% schema %}
+{
+  "name": "Badge Personalizado",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Badge Personalizado",
+      "category": "product"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="title-container">
+  <h1 class="title-especials">
+    produto especial
+  </h1>
+</div>
+
+{% assign badges = 5 %}  <!-- Número máximo de badges que você deseja suportar -->
+<div class="badges-container">
+  {% for i in (1..badges) %}
+    {% capture badge_image_key %}badge_image_{{ i }}{% endcapture %}
+    {% capture badge_title_key %}badge_title_{{ i }}{% endcapture %}
+  
+    {% assign badge_image = product.metafields.custom[badge_image_key] %}
+    {% assign badge_title = product.metafields.custom[badge_title_key] %}
+  
+    {% if badge_image and badge_title %}
+      <div class="badge">
+        <img src="{{ badge_image | img_url: 'medium' }}" alt="{{ badge_title }}" class="badge-image" />
+        <p class="badge-title">{{ badge_title }}</p>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<style>
+  .title-container {
+    text-align: center;
+  }
+  .badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .badge {
+    flex: 1 1 45%; /* 45% da largura, permitindo espaço entre os itens */
+    box-sizing: border-box;
+    margin: 5px;
+    text-align: center;
+  }
+  .badge-image {
+    max-width: 100%;
+    height: auto;
+  }
+  .badge-title {
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: normal;
+  }
+
+  @media screen and (min-width: 991px) {
+  .badges-container {
+    display: block;
+  }
+  }
+
+  @media (min-width: 600px) {
+    .badge {
+      flex: 1 1 21%; /* Ajuste a largura para telas maiores */
+      margin: 10px;
+    }
+  }
+</style>

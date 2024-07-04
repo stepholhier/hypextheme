@@ -1,0 +1,80 @@
+{% schema %}
+{
+    "name": "Seção Dupla",
+    "settings": [],
+    "blocks": [
+        {
+            "type": "banner",
+            "name": "Banner",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "banner_image",
+                    "label": "Banner Image"
+                },
+                {
+                    "type": "url",
+                    "id": "banner_link",
+                    "label": "Banner Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Seção Dupla",
+            "category": "Custom"
+        }
+    ],
+    "max_blocks": 2
+}
+{% endschema %}
+
+<div class="double-banner-section">
+    {% for block in section.blocks %}
+        {% if block.settings.banner_image %}
+            <a href="{{ block.settings.banner_link }}">
+                <img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="Banner {{ forloop.index }}">
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<style>
+.double-banner-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 70px auto;
+    gap: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.double-banner-section a {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+.double-banner-section img {
+    border-radius: 10px;
+    width: 100%;
+    object-fit: contain;
+    transition: 0.3s all;
+}
+.double-banner-section img:hover {
+    transform: scale(1.1);
+    transition: 0.3s all;
+}
+
+@media only screen and (max-width: 767px) {
+  .double-banner-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .double-banner-section img {
+    width: 85%;
+    margin: 10px;
+  }
+}
+</style>
