@@ -1,5 +1,7 @@
 HYPE X THEME
 
+* Este tema foi desenvolvido sem apoio da Shopify, desenvolvido totalmente por mim com base no tema Dawn nativo Shopify *
+
 Bem-vindo ao Hypex, o tema Shopify desenvolvido especialmente para atender às necessidades do público brasileiro. Com um design moderno e funcionalidades avançadas, o Hypex oferece tudo o que você precisa para criar uma loja online de sucesso e conquistar o mercado nacional.
 
 Principais Características:
